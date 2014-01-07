@@ -9,7 +9,7 @@ wordpress_id: 228
 ---
 
 I was trying to implement the Miller-Rabin algorithm for one of my home-works, in Python. I had already done this in C++ to solve [PON](http://www.spoj.pl/problems/PON/), but I wanted to try out Python, and see how fast I can get it to. I wrote a function to do 
-$latex a^b$ mod $latex n $
+$a\^b$ mod $n $
 which used repeated squaring to get the result. However, the implementation wasn't fast enough. Dhruv suggested that I profile the code.
 
 Here is how you profile a python script:

@@ -24,14 +24,14 @@ We need the following operations when implementing a heap:
 * `insertElem(t)`
 * `deleteTopElem(t)`
 
-All the operations should be done in $latex O(log{n})$ time.
+All the operations should be done in $O(\log{n})$ time.
 Internally in a binary-heap, the root element is always atleast as big as both of its children, and this property of the heap exists recursively. (In min-heaps, root is as small, or smaller than both of its children)
 
 It is easy to see that `topElem()` can be executed in constant time, since the maximum element would be at the root. (In min-heaps the minimum element would be at the root)
 
-Now, when we need to remove the maximum (or the minimum element in min-heaps), we need to remove the root and preserve the heap property. Removing the root is simple, but what it leaves behind is not so trivial. Either the left, or the right child would be the biggest (or the smallest, in min-heaps) element left now. So, we compare the two. The bigger (or smaller. You get the idea now, I guess) of the two is placed in the root, leaving a void at the place where it existed. So, now we need to correct either the left, or the right sub-tree of the root, until the sub-tree is empty. This operation will be executed $latex O(log {n})$ times, (costing $latex O(1)$ time, each time). So the complexity is $latex O(log {n})$. Thus, we are done with `deleteTopElem()`.
+Now, when we need to remove the maximum (or the minimum element in min-heaps), we need to remove the root and preserve the heap property. Removing the root is simple, but what it leaves behind is not so trivial. Either the left, or the right child would be the biggest (or the smallest, in min-heaps) element left now. So, we compare the two. The bigger (or smaller. You get the idea now, I guess) of the two is placed in the root, leaving a void at the place where it existed. So, now we need to correct either the left, or the right sub-tree of the root, until the sub-tree is empty. This operation will be executed $O(\log{n})$ times, (costing $O(1)$ time, each time). So the complexity is $O(\log{n})$. Thus, we are done with `deleteTopElem()`.
 
-`insertElem(t)` is even simpler, we place the new element in the lower-most level of the binary tree, where we have a place, or create a new level if we don't. Now, it is possible that the parent of the newly inserted element has lost the heap property. Thus, if the parent of the newly inserted element is greater than it, we swap the parent with the newly inserted element, and check if the new-parent has also lost the heap property. We continue this till we reach the root. This operation will be executed $latex O(log {n})$ times, (costing $latex O(1)$ time, each time). So the complexity is $latex O(log {n})$.
+`insertElem(t)` is even simpler, we place the new element in the lower-most level of the binary tree, where we have a place, or create a new level if we don't. Now, it is possible that the parent of the newly inserted element has lost the heap property. Thus, if the parent of the newly inserted element is greater than it, we swap the parent with the newly inserted element, and check if the new-parent has also lost the heap property. We continue this till we reach the root. This operation will be executed $O(\log{n})$ times, (costing $O(1)$ time, each time). So the complexity is $O(\log{n})$.
 
 Here is a messy little implementation:
 
@@ -187,7 +187,7 @@ void wrapper()
 }
 {% endcodeblock %}
 
-If you notice the code, I am inserting elements one by one, costing $latex O(log {n})$ on each insert. And hence, $O(n log{n})$ for $n$ elements. However, if we know the entire set of elements before hand, heap construction can be done in linear time, in a manner similar to `insertElem(t)`. Hint: Recursion.
+If you notice the code, I am inserting elements one by one, costing $O(\log{n})$ on each insert. And hence, $O(n\log{n})$ for $n$ elements. However, if we know the entire set of elements before hand, heap construction can be done in linear time, in a manner similar to `insertElem(t)`. Hint: Recursion.
 
 You might also want to overload the comparison operators for custom data-structures.
 

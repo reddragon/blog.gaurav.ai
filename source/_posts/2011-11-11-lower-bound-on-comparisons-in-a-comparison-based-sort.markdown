@@ -13,16 +13,16 @@ categories:
 
 I was asked this question recently. Here is a proof based on Information Theory.
 
-Assume that we have to sort an array of n elements, all of which are distinct. Hence, there are $latex n! $ permutations possible, out of which only one is sorted.
+Assume that we have to sort an array of n elements, all of which are distinct. Hence, there are $n! $ permutations possible, out of which only one is sorted.
 
-Now let us assume the lower bound on the comparisons to be $latex f(n) $. Since each comparison has only 2 outcomes, thus,
+Now let us assume the lower bound on the comparisons to be $f(n) $. Since each comparison has only 2 outcomes, thus,
 
-$latex 2^{f(n)} \geqslant n! $
+$2^{f(n)} \geqslant n! $
 
 has to hold. 
 
 Therefore,
 
-$latex f(n) = \log _2 ( n!)  $
+$f(n) = \log _2 ( n!)  $
 
-which, by [Stirling's approximation](http://en.wikipedia.org/wiki/Stirling%27s_approximation) is $latex \Omega(n \log_2 n)$. Knuth also gives a similar explanation in Volume 3.
+which, by [Stirling's approximation](http://en.wikipedia.org/wiki/Stirling%27s_approximation) is $\Omega(n \log_2 n)$. Knuth also gives a similar explanation in Volume 3.
