@@ -23,7 +23,7 @@ But I waded through both of them, by (a) being patient (b) batching up requests 
 
 Once I did that, I could use [R](http://www.students.ncl.ac.uk/keith.newman/r/maps-in-r) (thanks to [Aditya](https://github.com/truncs) for the suggestion) to plot the lat-long pairs on the World Map. The output isn't quite pleasing to the eye, but it does the job.
 
-[![](http://blog.gaurav.im/wp-content/uploads/2012/11/output-300x300.jpeg)](http://blog.gaurav.im/wp-content/uploads/2012/11/output.jpeg)
+{% img center /images/2012/11/output.jpeg %}
 
 You can find the script that gets the Lat-Long pairs [here](https://gist.github.com/3400704).
 

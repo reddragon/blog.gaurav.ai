@@ -27,7 +27,7 @@ Now we need to find a path from source (`s`) to sink (`t`), so that it is possib
 This path is found using either [Breadth First Search](http://en.wikipedia.org/wiki/Breadth-first_search) or Depth First Search. I am listing the code below for augmenting path with [Depth First Search](http://en.wikipedia.org/wiki/Depth-first_search), since in BFS, there is a need for path-reconstruction.
 
 Let's start with the basic initialization of the data-structures.
-[cpp]
+{% codeblock lang:cpp Initialization %}
 #define MAXN 100
 int adj[MAXN][MAXN], adjsz[MAXN],N;
 int f[MAXN][MAXN],c[MAXN][MAXN],s,t;
@@ -43,24 +43,24 @@ void init()
 			{ f[i][j]=0; c[i][j]=0; g[i][j]=0; }
 	}
 }
-[/cpp]
+{% endcodeblock %}
 `MAXN` is the estimate of the number of nodes we are going to have. s is the source and t is the sink node. `adj[i]` is the adjacency list for node `i`, and `adjsz[i]` is the size of the adjacency list of node i. N is the total number of nodes. `c[u][v]` is the capacity of the edge between u and v, and similarly `f[u][v]` is the flow in the edge between u and v. `g[u][v]` is true if there is an edge between either `u` and `v`, or `v` and `u`. The vis array is a visited array, and `vis[i]` is marked true if it has been visited for finding the augmenting path.
 
 Below is the code for adding a new edge between `u` and `v`.
 
-[cpp]
+{% codeblock lang:cpp Adding an Edge %}
 void add_edge(int u, int v, int cap)
 {
 	c[u][v]=cap;
 	if(!g[u][v]) { adj[u][adjsz[u]++]=v; g[u][v]=1; }
 	if(!g[v][u]) { adj[v][adjsz[v]++]=u; g[v][u]=1; }
 }
-[/cpp] 
+{% endcodeblock %}
 
 Note that, if there is an edge from `u` to `v` with a positive capacity, we make sure that both `u` and `v` are in each others' adjacency list. This is done so that, if there is some flow between two nodes that needs to be cancelled to increase the total flow of the network, we can push a flow in the opposite direction on that edge.
 
 Below is the code for Augmenting Path algorithm using DFS
-[cpp]
+{% codeblock lang:cpp Augmenting the path %}
 int augment_dfs(int u, int path_cap) 
 {
 	if(u==t) { return path_cap; }
@@ -85,14 +85,14 @@ int augment_dfs(int u, int path_cap)
 	}
 	return 0;
 }
-[/cpp]
+{% endcodeblock %}
 It is pretty easy to understand, it looks for neighbours of a node which are not visited and through which a positive flow can be pushed. It then determines exactly how much flow can be pushed through the current edge (between `u` and v). This value exists in the variable cur_cap. Then it recursively calls itself to repeat the procedure with `v`, and the new effective bottleneck capacity becoming `cur_cap`. When either the sink is found, or there is no eligible neighbor the recursion ends, and returns the current bottleneck capacity of the path, `path_cap`, if sink is found. If not, and there is no eligible neighbor, it returns `0`.
 
 The returned values trickle down, and finally the ultimate bottleneck capacity is returned.
 
 Ford-Fulkerson does nothing except trying to push more and more flow through the source by repetitively calling the `augment_dfs` function. When the returned value (bottleneck capacity of the augmented path) is `0`, it implies no more flow can be pushed.
 
-[cpp]
+{% codeblock lang:cpp Wrapper Code %}
 #define INF 1e7
 int ford_fulkerson()
 {
@@ -106,12 +106,12 @@ int ford_fulkerson()
 	} while(cur>0);
 	return tot;
 }
-[/cpp]
+{% endcodeblock %}
 
 In all we need to set N (the number of nodes), `s` (source), `t` (sink), and call the add_edge function for each edge we need to add. Also, set the `MAXN` macro appropriately.
 
 Here is the complete code.
-[cpp]
+{% codeblock lang:cpp FordFulkerson.cpp %}
 #define MAXN 100
 int adj[MAXN][MAXN], adjsz[MAXN],N;
 int f[MAXN][MAXN],c[MAXN][MAXN],s,t;
@@ -192,4 +192,4 @@ int ford_fulkerson()
 	} while(cur>0);
 	return tot;
 }
-[/cpp]
+{% endcodeblock %}

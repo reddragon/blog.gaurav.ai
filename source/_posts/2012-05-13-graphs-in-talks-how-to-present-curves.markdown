@@ -22,6 +22,6 @@ On the y-axis, you do not plot the actual cost, but plot the ratio of the _actua
 
 This is how we plotted something that we expected to be $latex O(n\log^2{n})$:
 
-[![](http://blog.gaurav.im/wp-content/uploads/2012/05/moves-300x225.png)](http://blog.gaurav.im/wp-content/uploads/2012/05/moves.png)
+{% img /images/2012/05/moves.png %}
 
 It was perfectly clear that the ratio is almost constant, and hence our hypothesis was correct.

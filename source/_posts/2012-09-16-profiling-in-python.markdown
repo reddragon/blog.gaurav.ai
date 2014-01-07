@@ -17,8 +17,7 @@ Here is how you profile a python script:
 
 And this is what I came to know
 
-    
-    
+{% codeblock %}    
              172 function calls (66 primitive calls) in 31.492 seconds
     
        Ordered by: standard name
@@ -34,7 +33,6 @@ And this is what I came to know
             2    0.008    0.004   16.672    8.336 millerRabin.py:21(millerRabin)
             1    0.000    0.000    0.000    0.000 os.py:743(urandom)
     
+{% endcodeblock %}
 
-
-
-Note how the fastModularExp function took a staggering 16 seconds. Now we came to know that the builtin [pow](http://docs.python.org/library/functions.html#pow) function in Python already does fast modular exponentiation. And since it is a part of a C library, it is quite fast. After doing this, I submitted it as a solution for [PON](http://www.spoj.pl/problems/PON/) and got accepted with 0.35 seconds, which was faster than my 0.90 submission with C++ :-)
+Note how the `fastModularExp()` function took a staggering 16 seconds. Now we came to know that the builtin [pow](http://docs.python.org/library/functions.html#pow) function in Python already does fast modular exponentiation. And since it is a part of a C library, it is quite fast. After doing this, I submitted it as a solution for [PON](http://www.spoj.pl/problems/PON/) and got accepted with 0.35 seconds, which was faster than my 0.90 submission with C++ :-)

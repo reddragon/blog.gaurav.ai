@@ -16,15 +16,16 @@ tags:
 
 
 **Solution**: See the JavaScript code below:
-[sourcecode lang="js"]
+{% codeblock lang:js %}
 function foo() {
     var x = 0;
     return function () { return ++x; };
 }
-[/sourcecode]
+{% endcodeblock %}
 
 I tried this in [nodejs](http://nodejs.org/), and here is the output:
-`
+
+{% codeblock %}
 > bar = foo()
 [Function]
 > bar()
@@ -33,7 +34,7 @@ I tried this in [nodejs](http://nodejs.org/), and here is the output:
 2
 > bar()
 3
-`
+{% endcodeblock %}
 
 The function `foo` returns a function which returns an incremented value of `x`. At first glance, to C/C++ programmers, this looks weird, because `x`, is a variable declared in `foo`, so how would the returned function have access to `x`?
 

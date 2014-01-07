@@ -34,7 +34,7 @@ When we have only one character left, the first character is the only permutatio
 
 The code is as follows:
 
-[sourcecode lang="cpp"]
+{% codeblock lang:cpp Permutations.cpp %}
 string str;
 
 void permute(int i)
@@ -61,8 +61,8 @@ void wrapper()
   sort(str.begin(), str.end());
   permute(0);
 }
-[/sourcecode]
+{% endcodeblock %}
 
 Isn't it beautiful? Its magical how we apparently do no work
-in every step, and it all stitches together so magically.
+in every step, and it all stitches together so beautifully.
 

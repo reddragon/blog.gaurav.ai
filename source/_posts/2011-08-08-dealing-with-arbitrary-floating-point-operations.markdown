@@ -20,7 +20,7 @@ Let me paint the picture better. The `M_PI` constant in C++ is correct upto 17 d
 
 I resorted to Python, and the its in-built bignum library using the Decimal module. Using the [Brother's series](http://mathworld.wolfram.com/e.html) expansion, the best I could get was a little more than 1000 digits, when using psyco.
 
-[python]
+{% codeblock e.py %}
 import psyco
 psyco.full()
 from decimal import *
@@ -35,11 +35,11 @@ for i in range(1,240):
 	f/=(a2)*(a2+1)
 	e+=(f)*(a2+2);
 print e
-[/python]
+{% endcodeblock %}
 
 Then, I switched to Ruby, and used the BigDecimal module to get nearly 30k digits in time.
 
-[ruby]
+{% codeblock e.rb %}
 require 'bigdecimal'
 require 'bigdecimal/math'
 include BigMath
@@ -51,7 +51,7 @@ for i in 1..8400
 end
 s = e.to_s
 print "2."+s[3..-1]
-[/ruby]
+{% endcodeblock %}
 
 However, I think I can do much better in C++ if i have a good arbitrary-precision floating point operations library.
 

@@ -10,6 +10,6 @@ wordpress_id: 220
 
 I wanted something that would dump a binary file on the terminal in hex. Turns out there is a tool called _hexdump_!
 
-[code]hexdump filename[/code]
+`hexdump filename`
 
 Voila!

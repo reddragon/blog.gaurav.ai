@@ -16,7 +16,7 @@ In CSE548, for a problem we reversed a string recursively, by reversing the two 
 
 So, we start with reversing the odd-even bits, then reversing pairs of bits, then reversing sets of 4 bits, and so on. So, this requires _3*log(n)_ bitwise operations, which is better. Here is an efficient implementation for reversing a 32-bit unsigned int.
 
-[sourcecode lang="cpp"]
+{% codeblock ReverseBits.cpp %}
 unsigned int reverse(unsigned int x)
 {
     x = ((x & 0x55555555)<<1)  | ((x & 0xAAAAAAAA)>>1);
@@ -31,4 +31,4 @@ void wrapper()
 {
     cout << reverse(0xF00BAAF0);
 }
-[/sourcecode]
+{% endcodeblock %}
