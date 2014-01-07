@@ -14,7 +14,7 @@ I had [done a visualisation using R](http://blog.gaurav.im/?p=219), where I plot
 
 The final output was something like this (a better look [here](http://bl.ocks.org/4623023)):
 
-[![](http://blog.gaurav.im/wp-content/uploads/2013/01/Screen-Shot-2013-01-25-at-6.52.54-PM1-300x117.png)](http://blog.gaurav.im/wp-content/uploads/2013/01/Screen-Shot-2013-01-25-at-6.52.54-PM1.png)
+{% img /images/2013/01/Screen-Shot-2013-01-25-at-6.52.54-PM1.png %}
 
 I wanted to resize the bubbles when there are a lot of points in the vicinity, but I'll leave that for later.
 
