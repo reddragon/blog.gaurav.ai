@@ -10,7 +10,7 @@ categories:
 - JS
 ---
 
-I had [done a visualisation using R](http://blog.gaurav.im/?p=219), where I plotted the locations of my friends and followers on Twitter on a map. I re-did this visualisation using [D3.js](http://d3js.org/). It is a fantastic visualisation tool, which a lot of features. I could only explore a fraction of the API for my purpose, but you can see a lot of cool [examples](https://github.com/mbostock/d3/wiki/Gallery) on their page.
+I had [done a visualisation using R](/2012/11/07/putting-my-twitter-friends-and-followers-on-the-map/), where I plotted the locations of my friends and followers on Twitter on a map. I re-did this visualisation using [D3.js](http://d3js.org/). It is a fantastic visualisation tool, which a lot of features. I could only explore a fraction of the API for my purpose, but you can see a lot of cool [examples](https://github.com/mbostock/d3/wiki/Gallery) on their page.
 
 The final output was something like this (a better look [here](http://bl.ocks.org/4623023)):
 
