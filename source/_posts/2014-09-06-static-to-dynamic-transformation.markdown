@@ -38,5 +38,6 @@ An interesting point is, if $Q(n) > n^\epsilon$, where $\epsilon > 0$ (which ess
 **Interesting Tidbit**
 Recollect what we mean when we say that a data-structure is _static_. A Bloom Filter is a static data-structure in a different way. You can keep inserting elements into it dynamically up to a certain threshold, but you can't iterate on those elements. 
 
-**What Next**: Deamortization of this data-structure with insertions as well as deletions. Then we will move on to Cache-Oblivious Lookahead Arrays, Fractional Cascading, and eventually Fractal Trees. This is like a rabbit hole!
 The strategy to make it dynamic is very similar, we start with a reasonably sized bloom-filter, keep inserting into it as long as we can. Once it is too full, we allocate another bloom-filter of twice the size, and insert elements into that, from now on. And so on. The queries are done on all the bloom-filters and are a union of their individual results. An implementation is <a href="https://github.com/reddragon/bloomfilter.go" target="_blank">here</a>.
+
+**What Next**: Deamortization of this data-structure with insertions as well as deletions. Then we will move on to Cache-Oblivious Lookahead Arrays, Fractional Cascading, and eventually Fractal Trees. This is like a rabbit hole!
