@@ -39,7 +39,7 @@ int solve(int n) {
 }
 {% endcodeblock %}
 
-This looks intuitive and correct, but unfortunately it is wrong. Hat tip to Vishwas for pointing out that the answers were wrong, or we would have moved to another problem. See if you can spot the problem before reading ahead.
+This looks intuitive and correct, but unfortunately it is wrong. <a href="http://en.wikipedia.org/wiki/Hat_tip" target="_blank">Hat tip</a> to Vishwas for pointing out that the answers were wrong, or we would have moved to another problem. See if you can spot the problem before reading ahead.
 
 The problem in the code is, we will count permutations multiple times, for example, for $n \= 3$, the result is 3 ({1, 1, 1}, {1, 2} and {2, 1}). {1, 2} and {2, 1} are being treated distinctly. This is not correct. A generic visualization follows.
 
