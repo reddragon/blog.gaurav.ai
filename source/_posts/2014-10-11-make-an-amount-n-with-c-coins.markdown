@@ -126,7 +126,7 @@ Step 4: Now, we will use coin 2 with denomination \\$2. We will start with $n \=
 {% img centre /images/2014/10/step-4.jpg %}
 
 Step 5: We repeat the same for 3. The cells with a dark green bottom are the final values. All others would have been overwritten.
-{% img centre /images/2014/10/step-4.jpg %}
+{% img centre /images/2014/10/step-5.jpg %}
 
 
 I was looking into where exactly are we maintaining the monotonically increasing order that we wanted in the top-down DP in this solution. It is very subtle, and can be understood, if you verify step 4 on paper, for $4, 5, 6, ...$ and see the chains that they form. 
