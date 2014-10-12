@@ -6,7 +6,7 @@ comments: true
 categories: algorithms, dynamic-programmimg
 ---
 
-This week we planned to discuss Dynamic Programming. The idea was to discuss about 4-5 problems, however, the very first problem kept us busy for an entire hour. The problem is a well known one: 'Given a set of coins, $C = {c\_1, c\_2, c\_3, ...}$, in how many ways can you make an amount N from those coins?'
+This week we planned to discuss Dynamic Programming. The idea was to discuss about 4-5 problems, however, the very first problem kept us busy for an entire hour. The problem is a well known one: 'Given an infinite supply of a set of coin denominations, $C = {c\_1, c\_2, c\_3, ...}$, in how many ways can you make an amount N from those coins?'
 
 The first question to be asked is, whether we allow permutations? That is, if, $c\_1 + c\_2 = N$, is one way, then do we count $c\_2 + c\_1 = N$, as another way? It makes sense to not allow permutations, and count them all as one. For example, if $N$ = 5, and $C$ = {1, 2, 5}, you can make 5 in the following ways: {1, 1, 1, 1, 1}, {1, 1, 1, 2}, {1, 2, 2}, {5}. 
 
