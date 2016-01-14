@@ -30,12 +30,16 @@ def tokenize(chars):
     return chars.replace('(', ' ( ').replace(')', ' ) ').split()
 {% endcodeblock %}
 
-Essentially, what this does is to handle white-space (somewhat). It basically adds spaces around the brackets, and then splits the expression on white-space. This doesn't work when other operators aren't separated by space properly, like $($$\+1$ $2)$ would be converted to $($ $\+1$ $2$ $)$. '$\+1$' would be considered one token.  
+Essentially, what this does is to handle white-space (somewhat). It basically adds spaces around the brackets, and then splits the expression on white-space.
 
-We need to do the replacement for all operators, but otherwise it works well, because LISP is simple enough that attaching types to tokens (and erroring out, if required) can be done at the time of parsing. The recurrent theme in the design of the interpreter, is to be lazy and push the harder problems to the next layer.
+We need to do the replacement for all operators, but otherwise it works well, because LISP is simple enough that attaching types to tokens (and erroring out, if required) can be done at the time of parsing. The recurrent theme in the design of this interpreter, is to be lazy and push the harder problems to the next layer.
 
-{% codeblock foo.go %}
-Add non-embarassing code.
+{% codeblock tokenizer.go %}
+func tokenize(exp string) []string {
+	return strings.Fields(
+		strings.Replace(strings.Replace(exp, "(", " ( ", -1), ")", " ) ", -1),
+	)
+}
 {% endcodeblock %}
 
 ## Constructing an AST
@@ -63,7 +67,7 @@ This means that given an expression like $(\+$ $1)$, this stage would only do st
 // 2. Unused tokens in the end of the array.
 // 3. Any error while constructing the tree.
 // Removed some error handling to make it a little brief.
-func getASTOfTokens(tokens []string) (*ASTNode, []string, error) {
+func buildAST(tokens []string) (*ASTNode, []string, error) {
   var token = ""
   tokensLen := len(tokens)
   // If it is an empty list of tokens, the AST is a nil node
@@ -99,9 +103,9 @@ func getASTOfTokens(tokens []string) (*ASTNode, []string, error) {
       // AST of the sub-expression from here on.
       if tokens[0] != openBracket {
         token, tokens = pop(tokens)
-        childNode, _, err = getASTOfTokens([]string{token})
+        childNode, _, err = buildAST([]string{token})
       } else {
-        childNode, tokens, err = getASTOfTokens(tokens)
+        childNode, tokens, err = buildAST(tokens)
       }
 
       if err != nil {
@@ -216,22 +220,22 @@ This is how we do it. In the method, `typeCoerce`, we try to find out which is t
 
 This is what we do inside `typeCoerce`:
 
-1. We get the type -> count mapping.
+1. We get the type : count mapping.
 2. If there is only one type, there is nothing to do, return the corresponding type.
 3. If there are multiple types, pick the one with the highest precedence.
 4. Try and cast all operand values to that type. Error out if any of them resists. Because, resistance is futile.
 
 Hence, the $+$ operator would be implemented something like this:
 {% codeblock operator.go %}
-addOperator(opMap,
+op :=
   &Operator{
     symbol:      add,
     minArgCount: 2,
-    maxArgCount: 100,
+    maxArgCount: 100,     // Just an arbit large value.
     handler: func(env *LangEnv, operands []Atom) Atom {
       var retVal Atom
       var finalType valueType
-      finalType, retVal.Err = chainedTypeCoerce(add, &operands, []map[valueType]int{numValPrecedenceMap, strValPrecedenceMap})
+      finalType, retVal.Err = typeCoerce(add, &operands, numValPrecedenceMap)
       if retVal.Err != nil {
         return retVal
       }
@@ -241,12 +245,8 @@ addOperator(opMap,
         var finalVal intValue
         finalVal.value = 0
         for _, o := range operands {
-          v, ok := o.Val.(intValue)
-          if ok {
-            finalVal.value = finalVal.value + v.value
-          } else {
-            fmt.Errorf("Error while converting %s to intValue\n", o.Val.Str())
-          }
+          v, _ := o.Val.(intValue)
+          finalVal.value = finalVal.value + v.value
         }
         retVal.Val = finalVal
         break
@@ -255,24 +255,26 @@ addOperator(opMap,
         var finalVal floatValue
         finalVal.value = 0
         for _, o := range operands {
-          v, ok := o.Val.(floatValue)
-          if ok {
-            finalVal.value = finalVal.value + v.value
-          } else {
-            fmt.Errorf("Error while converting %s to floatValue\n", o.Val.Str())
-          }
+          v, _ := o.Val.(floatValue)
+          finalVal.value = finalVal.value + v.value
         }
         retVal.Val = finalVal
-        break
-
-        retVal.Val = finalVal.newValue(fmt.Sprintf("\"%s\"", buffer.String()))
         break
       }
       return retVal
     },
-  },
-)
+  }
+// Add the operator to the LangEnv's opMap (operator map)
+addOperator(env.opMap, op)
 {% endcodeblock %}
+
+Here we basically just call `typeCoerce` on the operands, and if its possible to cast them to one single type, we do that casting, and actually perform the addition in the new type.
+
+The $+$ operator can be used to add strings as well. However, we don't want something like $($$+$ $3.14$ "foo"$)$. The `typeCoerce` method can be trivially extended to support a list of type valid type precedence maps, and all operands need to belong to the same precedence map. In this case, it could be `{ {intType: 1, floatType: 2}, {stringType: 1 } }`. This would ensure we don't mix and match between different families of types.
+
+
+Note that the entire implementation of the operator is defined in the `Operator` struct's `handler` method. Whether or not the operator supports this sort of casting, or decides to roll its own, or not use it at all, is the prerogative of the operator.
+
 
 ## Defining Variables
 
