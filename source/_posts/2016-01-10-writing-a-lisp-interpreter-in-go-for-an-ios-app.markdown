@@ -22,7 +22,7 @@ For example, this is a valid expression: $(\+$ $1$ $(\*$ $2$ $3))$. First we eva
 For a person designing an interpreter, LISP is the ideal real-life language to start with. This is for two reasons:
 
 1. There are minimal symbols to interpret. '(' and ')' and the operators that you define.
-2. The parsing is straight-forward and recursive. <a href="https://en.wikipedia.org/wiki/Syntactic_sugar" target="_blank">Zero syntactic-sugar</a>.
+2. The parsing is straight-forward and recursive. Zero <a href="https://en.wikipedia.org/wiki/Syntactic_sugar" target="_blank">syntactic-sugar</a>.
 
 It is because you can have as small a subset of LISP that you want, that I could stay motivated and bring this project to closure.
 
