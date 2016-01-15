@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Writing a LISP interpreter in Go for an iOS app"
+title: "[WIP] Writing a LISP interpreter in Go for an iOS app"
 date: 2016-01-10 21:38:02 -0800
 comments: true
 categories:
