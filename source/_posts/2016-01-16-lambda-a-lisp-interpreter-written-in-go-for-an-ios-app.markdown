@@ -1,46 +1,47 @@
 ---
 layout: post
-title: "[WIP] Writing a LISP interpreter in Go for an iOS app"
-date: 2016-01-10 21:38:02 -0800
+title: "Lambda: A LISP interpreter written in Go for an iOS app"
+date: 2016-01-16 01:23:38 -0800
 comments: true
 categories:
 ---
-In the summer of 2015, I wanted to work on a side-project that I can quickly use, instead of spending lots of weekends, and it getting no where. Luckily I found the right project on <a href="http://norvig.com/lispy.html" target="_blank">Peter Norvig's website</a>. Here I would try to describe in two parts, how to write a simple LISP interpreter, and how to put that in your iOS app.
+In the summer of 2015, I wanted to work on a side-project, that I can quickly use, instead of spending lots of weekends, and it getting no where. Luckily, I found the right project on <a href="http://norvig.com/lispy.html" target="_blank">Peter Norvig's website</a>. Here I would try to describe, how to write a simple LISP interpreter, and how to use that in your iOS app.
 
-To those who are new to LISP, its pretty simple to explain. LISP programs are based on something called '<a href="https://en.wikipedia.org/wiki/S-expression" target="_blank">s-expressions</a>'. It looks something like this:
-$(operator$ $operand_1$ $operand\_2$ $operand\_3$ $...)$.
+To those who are new to LISP, it is pretty simple to explain. LISP programs are based on something called '<a href="https://en.wikipedia.org/wiki/S-expression" target="_blank">s-expressions</a>'. An s-expression looks like this:
+$(\mathrm{operator}\ \mathrm{operand\_1}\ \mathrm{operand\_2}\ \mathrm{operand\_3}\ ...)$.
 
 For example:
 
-* $(+\ 1\ 2)$ in LISP is the same as $1\ +\ 2$.
-* $(*\ 2\ 3\ 4)$ in LISP evaluates to $2\ *\ 3\ *\ 4$.
+* $(+\ 1\ 2)$ is an s-expression, where $+$ is the operator, and $1$ and $2$ are the operands. Hence, it is equivalent to $1\ +\ 2$.
+* Similarly, $(*\ 2\ 3\ 4)$ in LISP evaluates to $2\ *\ 3\ *\ 4$.
 
-Now, the operands can themselves be recursively computed too.
+The operands can themselves be recursively computed too.
 
-For example, this is a valid expression: $(\+$ $1$ $(\*$ $2$ $3))$. First we evaluate the inner $(\*$ $2$ $3)$ part, then the original expression resolves to $(\+$ $1$ $6)$, which then evaluates to $7$. This can go on recursively.
+For example, $(\+$ $1$ $(\*$ $2$ $3))$ is a valid expression. First we evaluate the inner $(\*$ $2$ $3)$ part, then the original expression resolves to $(\+$ $1$ $6)$, which then evaluates to $7$. This can go on recursively.
 
-For a person designing an interpreter, LISP is the ideal real-life language to start with. This is for two reasons:
+For someone who wants to design an interpreter, LISP is the ideal real-life language to start with. This is for two reasons:
 
-1. There are minimal symbols to interpret. '(' and ')' and the operators that you define.
+1. There are minimal symbols to interpret. Only $($ and $)$ and the operators that you define.
 2. The parsing is straight-forward and recursive. Zero <a href="https://en.wikipedia.org/wiki/Syntactic_sugar" target="_blank">syntactic-sugar</a>.
 
-It is because you can have as small a subset of LISP that you want, that I could stay motivated and bring this project to closure.
+I could only stay motivated, and bring this project to a closure, because you can pick a very small subset of LISP, and still do a lot of interesting things.
 
 ## What I Built
-To keep you motivated about reading the article, lets do the demo first and then we can talk about how I built this.
+To keep you motivated about reading the article, lets do a demo first and then we can go into details about how I built this.
 
-[TODO: youtube video.]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Kxeqo2d12_Y" frameborder="0" allowfullscreen align="center"></iframe>
 
-Here is the <a href="https://github.com/reddragon/lambda" target="_blank">code for the interpreter</a>, and the <a href="https://itunes.apple.com/lc/app/lambda-lisp/id1046408504?mt=8" target="_blank">app on iTunes</a>. Feel free to file issues / contribute.
 
-If you are still reading, let's build an interpreter!
+Here is the GitHub <a href="https://github.com/reddragon/lambda" target="_blank">repository for the interpreter</a>, and the <a href="https://itunes.apple.com/lc/app/lambda-lisp/id1046408504?mt=8" target="_blank">app on iTunes (Lambda Lisp)</a>. Feel free to file issues / contribute.
+
+If you are still reading: Let's build an interpreter!
 
 ## Lexing
 Lexing involves finding _lexemes_, or syntactical tokens, which can then be combined to interpret a grammatical sentence. In the expression $(\+$ $1$ $2)$, the tokens are [$($, $+$, $1$, $2$,  $)$]. Sophisticated compilers use <a href="http://dinosaur.compilertools.net/" target="_blank">lex</a> or <a href="https://en.wikipedia.org/wiki/Flex_(lexical_analyser_generator)" target="_blank">flex</a> for finding these tokens, handling white-space, attaching a token type to each of them, etc.
 
 I did not want to bloat up my simple interpreter by using lex / flex. I found this nifty one-line bare-bones Lexer in Peter Norvig's article:
 
-{% codeblock lex.py %}
+{% codeblock lang:py Peter Norvig's one-line lexer %}
 def tokenize(chars):
     "Convert a string of characters into a list of tokens."
     return chars.replace('(', ' ( ').replace(')', ' ) ').split()
@@ -48,9 +49,9 @@ def tokenize(chars):
 
 Essentially, what this does is to handle white-space (somewhat). It basically adds spaces around the brackets, and then splits the expression on white-space.
 
-We need to do the replacement for all operators, but otherwise it works well, because LISP is simple enough that attaching types to tokens (and erroring out, if required) can be done at the time of parsing. This is how I did it in Go, just for completeness sake.
+We need to do the replacement for all operators, but otherwise it works well. This is because LISP is simple enough that attaching types to tokens (and error-ing out, if required) can be done at the time of parsing. This is how I did it in Go, just for completeness sake.
 
-{% codeblock tokenizer.go %}
+{% codeblock lang:go My one-line lexer in Go %}
 func tokenize(exp string) []string {
   return strings.Fields(
     strings.Replace(strings.Replace(exp, "(", " ( ", -1), ")", " ) ", -1),
@@ -64,27 +65,23 @@ The recurrent theme in the design of this interpreter, is to be lazy and push th
 Given an expression, we would need to make sure that the expression follows a structure, or a Grammar. This means two things in our case:
 
 1. The s-expression should be well formed. The brackets should be balanced, should not be out of order, etc.
-2. Operators such as $+$, $*$, etc. get the right number / type of operators, etc.
+2. Operators such as $+$, $*$, etc. get the right number of operands, have the right type of operands, etc.
 
-At this stage, we are only concerned about well-formedness of the s-expression. We don't care if the $+$ operator received incompatible operands, or any of these other problems. This means that given an expression like $(\+$ $1)$, we would mark this expression to be okay at this point, because the expression is well-formed. We will catch the problem of too few operands to $+$, at a later time.
+At this stage, we are only concerned about well-formedness of the s-expression. We don't care if the $+$ operator received incompatible operands, for instance. This means that given an expression like $(\+$ $1)$, we would mark this expression to be okay at this point, because the expression is well-formed. We will catch the problem of too few operands to $+$, at a later time.
 
-We can start by using an Abstract Syntax Tree (or AST). An AST is a way of representing the syntactic structure of code. Read <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree" target="_blank">more about it here</a>. In this tree, the leaf nodes are atomic values, and all the non-leaf nodes are operators. Recursion can naturally be expressed using an AST.
-
-For example, the AST for the expression, $(\+$ $1$ $(\*$ $2$ $3))$ it would look something like this:
-
-[TODO: AST diagram]
+We can start solving the problem of checking well-formedness of the expression by using an <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree" target="_blank">Abstract Syntax Tree (or AST)</a>. An AST is a way of representing the syntactic structure of code. In this tree, the leaf nodes are atomic values, and all the non-leaf nodes are operators. Recursion can be naturally expressed using an AST.
 
 This is how we can represent a node of this tree in the code:
-{% codeblock astNode.go %}
+{% codeblock lang:go Definition of ASTNode %}
 type ASTNode struct {
-  children []*ASTNode // Children of this AST Node.
+  value    string     // Only valid for leaf nodes.
   isValue  bool       // Checks if this is a value (also if children == nil).  
-  value    string
+  children []*ASTNode // Children of this AST Node.
 }
 {% endcodeblock %}
 
 To actually verify the well-formedness of the expression and build the AST, we would go about it this way:
-{% codeblock ast.go %}
+{% codeblock lang:go Building the AST %}
 // This method gets a list of tokens, and returns:
 // 1. The ASTNode of the tree so formed.
 // 2. Unused tokens in the end of the array.
@@ -147,20 +144,21 @@ func buildAST(tokens []string) (*ASTNode, []string, error) {
 }
 {% endcodeblock %}
 
-You can see how the grammar for interpreting the s-expression grammar is hard-coded here. We expect the expression to be either a single value, or something like $($$operator$ $o\_1$ $o\_2$ $...$ $)$, where $o\_i$ can be an atomic value, or a nested expression. They are all `ASTNode` objects, and are returned as part of the `children` slice.
+You can see how the grammar for interpreting the s-expression grammar is hard-coded in the code here. We expect the expression to be either a single value, or something like $(\mathrm{operator}\ \mathrm{o\_1}\ \mathrm{o\_2}\ ...\ )$, where $\mathrm{o\_i}$ can be an atomic value, or a nested expression.
+
+Note that we construct the AST slightly differently. The operator is also part of the `children`.
 
 ## Parsing & Evaluation
 We combine the parsing and evaluation of the AST into one stage. The result of evaluating an AST is an `Atom`, which can either have a `Value` or an `errror`.
-{% codeblock atom.go %}
-// An Atom is either a value, or an error
+{% codeblock lang:go  Defining Atom %}
 type Atom struct {
   Err error
   Val Value
 }
 {% endcodeblock %}
 
-This is a stripped down AST evaluation code here.
-{% codeblock eval.go %}
+Here is a stripped down AST evaluation code:
+{% codeblock lang:go Evaluating the AST %}
 func evalAST(env *LangEnv, node *ASTNode) Atom {
   var retVal Atom
   if node.isValue {
@@ -193,7 +191,7 @@ func evalAST(env *LangEnv, node *ASTNode) Atom {
 Basic evaluation is very simple. We have a struct called `LangEnv`, which is the 'environment' data-structure storing amongst other things, defined operators. When evaluating an AST, if it is a single node, the value of the node is the result. Otherwise, we simply lookup the operator in the environment using `getOperator`, then resolve the operands recursively, and pass the operands to the operator. The operand deals with making sure that the operands are sane.
 
 An operator looks something like this:
-{% codeblock operator.go %}
+{% codeblock lang:go  Defining Operator %}
 type Operator struct {
   symbol           string
   minArgCount      int
@@ -208,7 +206,7 @@ Now, the fun stuff.
 ## Type System
 Remember `Atom` has a `Value` inside? `Value` is an interface, and any type which wants to be a `Value`, needs to implement the following methods.
 
-{% codeblock value.go %}
+{% codeblock lang:go  What should a Value look like? %}
 type Value interface {
   Str() string                 // Returns a string representation of the value.
   getValueType() valueType     // Return the valueType (enum of all Values).
@@ -222,7 +220,7 @@ This is enough power to figure out which value is of which type. In `LangEnv` we
 
 To deduce the type of a value, we simply do this:
 
-{% codeblock getValue.go %}
+{% codeblock lang:go  Type deduction %}
 func getValue(env *LangEnv, token string) (Value, error) {
   types := builtinTypes()
   for _, t := range types {
@@ -250,10 +248,10 @@ This is what we do inside `typeCoerce`:
 1. We get the type : count mapping for all the param values.
 2. If there is only one type, there is nothing to do, return the corresponding type. Every value belongs to the same type.
 3. If there are multiple types in step 1, pick the one with the highest precedence.
-4. Try and cast all operand values to that type. Error out if any of them resists. Because, resistance is futile.
+4. Try and cast all operand values to that type. Error out if any of them resists.
 
-Hence, the $+$ operator would be implemented something like this:
-{% codeblock operator.go %}
+Hence, the $+$ operator could be implemented this way:
+{% codeblock lang:go  Defining the '+' operator %}
 op :=
   &Operator{
     symbol:      add,
@@ -311,7 +309,7 @@ Now, `defvar` is an operator too. It expects the first argument to be of `varTyp
 
  We need to change the part in our `evalAST` method which  to support variable lookup.
 
-{% codeblock eval2.go %}
+{% codeblock lang:go  Changes in evalAST to support variables %}
 func evalAST(env *LangEnv, node *ASTNode) Atom {
   // ...
     for i := 1; i < len(node.children); i++ {
@@ -356,11 +354,13 @@ We need a couple of things for function calls to work fine:
 * Create a new `astValue` which can be used for keeping ASTs. So far we were keeping ints, floats and so on.
 * Have a way to tell `evalAST` to not evaluate the AST in the `defun` arguments. This is because in `circle-area`, the `(* 3.14 r r)` itself is the value (AST value).
 * The `defun` operator needs to add an operator to the `opMap`, with the same name as the method, and define its `handler` method.
-* The handler would need expect the same number of params as specified in the definition.
-* Till now, our variables have been global in scope. If I do `(defvar x 3.0)`, and then later define a new method as `(defun foo (x) (+ 1 x))`, the interpreter may look at the `varMap` and think that I want to use the global `x`, which is $3.0$. I want to use the one defined as a parameter to the function call. For this, we would need:
+* The handler would need to expect the same number of params as specified in the definition.
+* Up until now, our variables have been global in scope. Assume that there is a `(defvar x 3.0)` defining the variable `x`, followed by `(defun foo (x) (+ 1 x))` which defines a method uses a param labelled `x`. The interpreter may look at the `varMap` and think that the programmer wants to use the global `x`, which is $3.0$. The actual intention of the programmer is to use the parameter `x`.
+
+For this to work correctly, we would need:
   * A new `LangEnv` to be created, inside the `handler`.
   * First copy the same `varMap` as the parent `LangEnv` passed to the handler.
-  * Then copy the params passed to the handler. Any duplicates will be overwritten, but all global definitions would be preserved. The function-local scope would take priority.
+  * Then copy the params passed to the handler. Any duplicates will be overwritten, but all global definitions would be preserved. The variable defined in the inner scope would be visible.
   * Inside the handler, we will call `evalAST` to evaluate the AST we were provided in the method definition with the new `LangEnv`
   * We also keep track of the recursion depth in `LangEnv`, and it is incremented every time a recursive call is made. If it exceeds a large value (100000 for now), we can error out, so as to salvage the interpreter at least.
 
