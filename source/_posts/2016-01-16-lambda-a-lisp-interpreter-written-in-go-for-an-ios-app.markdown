@@ -5,7 +5,7 @@ date: 2016-01-16 01:23:38 -0800
 comments: true
 categories:
 ---
-In the summer of 2015, I wanted to work on a side-project, that I can quickly use, instead of spending lots of weekends, and it getting no where. Luckily, I found the right project on <a href="http://norvig.com/lispy.html" target="_blank">Peter Norvig's website</a>. Here I would try to describe, how to write a simple LISP interpreter, and how to use that in your iOS app.
+In the summer of 2015, I wanted to work on a side-project, that I can quickly use, instead of spending lots of weekends, and it getting no where. Luckily, I found the right project on <a href="http://norvig.com/lispy.html" target="_blank">Peter Norvig's website</a>. Here I will try to describe, how to write a simple LISP interpreter, and how to use that in your iOS app.
 
 To those who are new to LISP, it is pretty simple to explain. LISP programs are based on something called '<a href="https://en.wikipedia.org/wiki/S-expression" target="_blank">s-expressions</a>'. An s-expression looks like this:
 $(\mathrm{operator}\ \mathrm{operand\_1}\ \mathrm{operand\_2}\ \mathrm{operand\_3}\ ...)$.
@@ -390,4 +390,6 @@ Once I had the interpreter working fine, I wanted to run this on an iOS app. Why
 
 What it does is, it compiles your Go package into a static library, and generates Objective-C bindings for it, and wraps them together in a nice iOS friendly `.framework` package.
 
-There are a few restrictions regarding not being able to return complex types such as structs within structs, but apart from that it was fairly easy to use in my bare-bones app. <a href="https://github.com/reddragon/lambda-iOS" target="_blank">Here is the code</a> for the app, and here is a quick demo.
+There are a few restrictions regarding not being able to return complex types such as structs within structs, but apart from that it was fairly easy to use in my bare-bones app. <a href="https://github.com/reddragon/lambda-iOS" target="_blank">Here is the code</a> for the app, and we have already seen the demo earlier.
+
+_(Thanks to <a href="http://dhruvbird.blogspot.com" target="_blank">Dhruv Matani</a> for reviewing this blog-post.)_
