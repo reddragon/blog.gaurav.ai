@@ -364,7 +364,7 @@ For this to work correctly, we would need:
   * Inside the handler, we will call `evalAST` to evaluate the AST we were provided in the method definition with the new `LangEnv`
   * We also keep track of the recursion depth in `LangEnv`, and it is incremented every time a recursive call is made. If it exceeds a large value (100000 for now), we can error out, so as to salvage the interpreter at least.
 
-This is the only complicated part of the interpreter. Those interested in the code can check it out <a href="https://github.com/reddragon/lambda/blob/master/lang/operator.go#L494" target="_blank">here</a>.
+This is the only complicated part of the interpreter. Those interested in the code can check it out <a href="https://github.com/reddragon/lambda/blob/fb186278bff8965081b6d7ab9381c6a7b84ae1bb/lang/operator.go#L494" target="_blank">here</a>.
 
 ## Recursion
 
