@@ -46,7 +46,7 @@ Listing notes from few talks which were interesting:
 **Learning to Rank with Selection Bias in Personal Search  (Google)**
 
 * Personal Search is hard because human judgement is not possible on personal corpora such as GMail, GDrive.
-* Personal Search is much sparser than web-search, as in for each searcher, the corpus almost entirely different. Hence we cannot use models which use a large number of click data for each query-document pair.
+* Personal Search is much sparser than web-search, as in for each searcher, the corpus is almost entirely different. Hence we cannot use models which use a large number of click data for each query-document pair.
 * Went over the explanation of Selection Bias: How queries with equal probabilities of appearing in the universe of all queries, can have different probabilities of appearing in the training set, because of selection bias.
 * Introduced the inverse propensity bias, which is the ratio between the probability of the given query appearing in a random sample to the probability of the query appearing in the training set, and use that as a multiplicative weight for the loss function.
 * They try to learn these weights in a global as well as segmented fashion. Where segmentation happens on query categories.
