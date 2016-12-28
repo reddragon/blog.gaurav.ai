@@ -57,7 +57,7 @@ Most of the heavy-lifting of consistency within a specific posting list reader-w
 The paper was very easy to read. I would have hoped that the authors would have described how the switching between immutable-to-mutable index happens, how is the index persisted to disk, etc., apart from addressing the rigid structure of meta-data in each posting list entry (just the term position).
 
 
-## Omnisearch and improvements on EarlyBird.
+## Omnisearch and Improvements on EarlyBird
 
 There are a couple of new posts about improvements on top of EarlyBird.
 
