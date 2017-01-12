@@ -196,4 +196,4 @@ How it ant thim hand
 Not too bad. It learns that there are characters named Sebastian and Ferdinand. And mind you this was a character level model, so this isn't super crappy :-)
 
 
-_(All training was done on my MBP. NVidia GPUs were not used. I have a good ATI Radeon GPU at home, but TF doesn't support OpenCL yet. <a href="https://github.com/tensorflow/tensorflow/issues/22" target="_blank">It's coming soon-ish though.</a>)_
+_(All training was done on my MBP. No NVidia GPUs were used whatsoever. I have a good ATI Radeon GPU at home, but TF doesn't support OpenCL yet. <a href="https://github.com/tensorflow/tensorflow/issues/22" target="_blank">It's coming soon-ish though.</a>)_
