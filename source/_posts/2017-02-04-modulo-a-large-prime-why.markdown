@@ -14,10 +14,10 @@ In hash functions, one should expect to receive pathological inputs. Assume, $n 
 
 As a generalization, if the greatest common factor of $h(x)$ and $n$ is $g$, then the number of buckets that will be used is $\large \frac{n}{g}$. This is easily workable on paper.
 
-To be able to use all the buckets, we ideally want, $\large \frac{n}{g}$ $= n$, which implies $g = 1$.
+We ideally want to be able to use all the buckets. Hence, the number of buckets used, $\large \frac{n}{g}$ $= n$, which implies $g = 1$.
 
 This means, the input and the modulus ($n$) should be co-prime (i.e., share no common factors). Given, we can't change the input, we can only change the modulus. So we should choose the modulus such that it is co-prime to the input.
 
-For the co-prime requirement to hold for all inputs, we can make $n$ to be a prime. Now it will have no common factors with any input (except it's own multiples), and $g$ would be 1.
+For the co-prime requirement to hold for all inputs, $n$ has to be a prime. Now it will have no common factors with any input (except it's own multiples), and $g$ would be 1.
 
 Therefore, we need the modulus to be prime in such settings. Let me know if I missed out on something, or my intuition here is incorrect.
