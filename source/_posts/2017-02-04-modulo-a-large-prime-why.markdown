@@ -12,7 +12,7 @@ Similarly, when computing which hash-table bucket a particular item goes to, the
 ## Why do we need a prime modulus?
 In hash functions, one should expect to receive pathological inputs. Assume, $n = 8$. What happens, if we receive $h(x)$ such as that they are all multiples of $4$? That is, $h(x)$ is in $[4, 8, 12, 16, 20, ...]$, which in $\bmod 8$ arithmetic will be $[4, 0, 4, 0, 4, ...]$. Clearly, only 2 buckets will be used, and the rest 6 buckets will be empty, if the input follows this pattern. There are several such examples.
 
-As a generalization, if the greatest common factor of $h(x)$ and $n$ is $g$, then the number of buckets that will be used is $\large \frac{n}{g}$. This is easily workable on paper.
+As a generalization, if the greatest common factor of $h(x)$ and $n$ is $g$, and the input is going to be of the form $[h(x), 2h(x), 3h(x), ...]$, then the number of buckets that will be used is $\large \frac{n}{g}$. This is easily workable on paper.
 
 We ideally want to be able to use all the buckets. Hence, the number of buckets used, $\large \frac{n}{g}$ $= n$, which implies $g = 1$.
 
@@ -20,4 +20,6 @@ This means, the input and the modulus ($n$) should be co-prime (i.e., share no c
 
 For the co-prime requirement to hold for all inputs, $n$ has to be a prime. Now it will have no common factors with any input (except it's own multiples), and $g$ would be 1.
 
-Therefore, we need the modulus to be prime in such settings. Let me know if I missed out on something, or my intuition here is incorrect.
+Therefore, we need the modulus to be prime in such settings.
+
+Let me know if I missed out on something, or my intuition here is incorrect.
