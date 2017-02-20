@@ -6,13 +6,13 @@ comments: true
 categories:
 ---
 
-<a href="www3.cs.stonybrook.edu/~bender/" target="_blank">Professor Bender</a> asked us to remember three 'Deathbed Formulae', i.e., if someone asks you about them on your deathbed, you should be able to recall these.
+<a href="http://www3.cs.stonybrook.edu/~bender/" target="_blank">Professor Bender</a> asked us to remember three 'Deathbed Formulae', i.e., if someone asks you about them on your deathbed, you should be able to recall these.
 
 1. $\large{\left(\frac{y}{x}\right)^{x}} \leq \large{y \choose x} \leq \large{\left(\frac{ey}{x}\right)^{x}}$.
 
-2. $\left(1 - \large{\frac{1}{n}}\right)^{n} \approx \large{\frac{1}{e}}$.
+2. For a large value of $n$, $\left(1 - \large{\frac{1}{n}}\right)^{n} \approx \large{\frac{1}{e}}$.
 
-3. $\left(1 + \large{\frac{1}{n}}\right)^{n} \approx e$.
+3. For a large value of $n$, $\left(1 + \large{\frac{1}{n}}\right)^{n} \approx e$.
 
 These were super-helpful in the Graduate-level Algorithms and Advanced Algorithms courses, which were heavy on randomized algorithms.
 
