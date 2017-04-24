@@ -69,7 +69,7 @@ As seen, in the `__init__` method, we just need to define the various NN layers 
 The gradients will be applied after the backward pass, which is auto-computed. The code is self-explanatory and fairly easy to understand.
 
 * Torch also keeps track of how to retrieve standard data-sets such as CIFAR-10, MNIST, etc.
-* After getting the data, from the data-loader you can proceed to play with it. Below is an easy to understand implementation to complete the implementation (which is pretty much from the tutorial).
+* After getting the data, from the data-loader you can proceed to play with it. Below are rest of the pieces required to complete the implementation (almost all of it is from the tutorial):
 
 {% codeblock lang:py %}
 # Create the net and define the optimization criterion
@@ -103,6 +103,8 @@ for epoch in range(20):  # loop over the dataset multiple times
         loss.backward()
         optimizer.step()
 {% endcodeblock %}
+
+The `criterion` object is used to compute your loss function. `optim` has a bunch of convex optimization algorithms such as vanilla SGD, Adam, etc. As promised, simply calling the `backward` method on the loss object allows computing the gradient.
 
 * Assuming you are working on the tutorial. Try to solve the tutorial for MNIST data instead of CIFAR-10.
 * Instead of the 3-channel (RGB) image of size 24x24 pixels, the MNIST images are single channel 28x28 pixel images.
