@@ -41,7 +41,7 @@ However, we need to make sure that the probability of each element being picked 
   - Since it holds for a stream of size $l$, all elements before the $l+1$-th element have the same likelihood, i.e., $\large\frac{1}{l}$.
   - The new element will replace the selected element with a probability of $\large\frac{1}{l+1}$, but the existing element will remain with a probability of $\large\frac{l}{l+1}$.
   - Hence the probability of each of the elements seen so far being selected will be, $\large\frac{1}{l} . \large\frac{l}{l+1} = \large\frac{1}{l+1}$.
-  - The probability of the new element being selected, as we stated earlier is $\large\frac{1}{l}$.
+  - The probability of the new element being selected, as we stated earlier is $\large\frac{1}{l+1}$.
   - Hence, the probability will be the same for all the elements, assuming it holds for a stream of size $n$.
 3. Given that the property holds for $n = 1$, and (2) is true, we can prove by induction that this property holds for all $n \gt 1$.  
 
