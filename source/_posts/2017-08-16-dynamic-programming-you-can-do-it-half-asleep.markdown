@@ -7,7 +7,9 @@ categories:
 ---
 That was a click-baity title. :)
 
-But seriously, people make a big deal out of ‘Dynamic Programming’. The name is misleading, and you can quickly go from a naive solution to an efficient solution, pretty easily. I wrote this post slightly geared towards interview practice, but it is also relevant otherwise.
+I wrote this post slightly geared towards interview practice, but it is also relevant otherwise.
+
+But seriously, people make a big deal out of ‘Dynamic Programming’, in the light of programming interviews. The name is misleading, and for most problems in such interviews, you can go from a naive solution to an efficient solution, pretty easily. 
 
 Any problem that has the following properties can be solved with Dynamic Programming:
 Overlapping sub-problems: When you might need the solution to the sub-problems again.
