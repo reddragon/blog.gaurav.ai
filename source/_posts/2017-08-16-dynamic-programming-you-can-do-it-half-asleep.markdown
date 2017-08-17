@@ -12,8 +12,9 @@ I wrote this post slightly geared towards interview practice, but it is also rel
 But seriously, people make a big deal out of ‘Dynamic Programming’, in the light of programming interviews. The name is misleading, and for most problems in such interviews, you can go from a naive solution to an efficient solution, pretty easily. 
 
 Any problem that has the following properties can be solved with Dynamic Programming:
-Overlapping sub-problems: When you might need the solution to the sub-problems again.
-Optimal substructure: Optimizing the sub-problems can help you get the optimal solution to the bigger problem.
+
+1. Overlapping sub-problems: When you might need the solution to the sub-problems again.
+2. Optimal substructure: Optimizing the sub-problems can help you get the optimal solution to the bigger problem.
 
 You just have to do two things here:
 
