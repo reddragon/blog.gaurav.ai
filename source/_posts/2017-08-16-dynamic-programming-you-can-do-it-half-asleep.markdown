@@ -7,9 +7,7 @@ categories:
 ---
 That was a click-baity title. :)
 
-I wrote this post slightly geared towards interview practice, but it is also relevant otherwise.
-
-But seriously, people make a big deal out of ‘Dynamic Programming’, in the light of programming interviews. The name is misleading, and for most problems in such interviews, you can go from a naive solution to an efficient solution, pretty easily. 
+But seriously, people make a big deal out of ‘Dynamic Programming’, in the context of software engineering interviews. Also, the name sounds fancy but for most problems in such interviews, you can go from a naive recursive solution to an efficient solution, pretty easily.
 
 Any problem that has the following properties can be solved with Dynamic Programming:
 
@@ -141,23 +139,23 @@ int fooDP(int n, int m) {
 }
 {% endcodeblock %}
 
-* Number of unique calls: $O(n* m)$
-* Space Complexity: $O(n * m)$
-* Time Complexity: $O(n * m)$
+* Number of unique calls: $O(nm)$
+* Space Complexity: $O(nm)$
+* Time Complexity: $O(nm)$
 
 Assume I tweak foo and add an $O(n \log m)$ work inside each call, that would just be multiplied for the time complexity, i.e.,
 
 Time complexity = O(unique calls) * O(work-per-call)
 
-$$\implies O(n . m) \times O(n log m)$$
+$$\implies O(nm) \times O(n \log m)$$
 
 $$\implies O(n^2 m \log m)$$
 
 $Space Complexity = O(unique calls) * O(space per call)
 
-$$\implies O(n . m) \times O(1)$$
+$$\implies O(nm) \times O(1)$$
 
-$$\implies O(n . m)$$
+$$\implies O(nm)$$
 
 
 **Now just reinforce these ideas with this question**
