@@ -1,0 +1,21 @@
+---
+author: reddragon
+comments: true
+date: 2012-03-30 13:42:07+00:00
+layout: post
+slug: git-blame
+title: git blame
+wordpress_id: 157
+---
+
+Yesterday, I came to know about [this](http://book.git-scm.com/5_finding_issues_-_git_blame.html) wonderful git command. What it allows you to do, is to track who wrote a particular section of a file.
+
+```
+reddragon@reddragon-laptop:~$ git blame -L 150,+5 decaf.yy
+24d48281 (Gaurav Menghani 2012-03-21 19:28:31 -0400 150) ClassDeclarations:
+efe4b77c (Dhruv           2012-03-28 18:08:03 -0700 151)     ClassDeclarations C
+d25802c5 (Gaurav Menghani 2012-03-28 21:17:15 -0400 152)         $1->push_back($
+efe4b77c (Dhruv           2012-03-28 18:08:03 -0700 153)         $$ = $1;
+efe4b77c (Dhruv           2012-03-28 18:08:03 -0700 154)     }
+```
+
