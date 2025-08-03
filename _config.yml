@@ -25,7 +25,7 @@ description:	       'All things Computer Science.'
 author:              'Gaurav Menghani'
 
 # This will go away later.
-baseurl:           /blog.gaurav.ai
+baseurl:
 
 # RSS 2.0 can be used instead of Atom by uncommenting following two lines
 #feed:
