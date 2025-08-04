@@ -4,7 +4,7 @@ disqus:
   disqus_shortname: 'bloggauravim'
 
 # If you are not using Google Analytics, please change 'google-ID' to an empty string
-google-ID: 'UA-1125769-7'
+google-ID: 'G-FBYR53ZMBW'
 
 menu:
 - {name: 'Archive', url: 'archive.html'}
