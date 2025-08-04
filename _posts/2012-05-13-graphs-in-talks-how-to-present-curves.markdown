@@ -20,7 +20,7 @@ Okay. What intuition do you have for something which costs $O(n\log{n})$. I woul
 
 On the y-axis, you do not plot the actual cost, but plot the ratio of the _actual cost to the value that you expected_, and show that the ratio is constant.
 
-This is how we plotted something that we expected to be $O(n\log\^2{n})$:
+This is how we plotted something that we expected to be $O(n\log^2{n})$:
 
 ![moves]({{ site.baseurl }}/assets/img/2012/05/moves.png)
 
