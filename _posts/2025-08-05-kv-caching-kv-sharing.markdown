@@ -49,16 +49,16 @@ KV Caching suggests there are two things happening during inference:
 
 Since $W_K$ and $W_V$ are fixed, once we compute the K, V representations for a given (token, layer, head) tuple, it can be reused when predicted any subsequent tokens by caching those representations in memory and reusing them for the next step.
 
-If we can do this, we would only need to compute the K, V representations of the $s_{n-1}$ token when predicting the $n$-th token, since that's the only token for which we don't have the K, V vectors. Therefore, it is easy to show that the total cost of computing the layer is $O(ld^2)$, an $n$-times speedup! This is a significant win, especially if the sequence is very long.
+If we can do this, we would only need to compute the K, V representations of the $s_{n-1}$ token when predicting the $n$-th token, since that's the only token for which we don't have the K, V vectors. Therefore, it is easy to show that the new total cost of computing the representations is $O(ld^2)$, an $n$-times speedup! This is a significant win, especially if the sequence is very long.
 
 Question: Why don't we cache the query representation?<br/>
-Answer: We only use the compute and use the Q vector for the last token. Thus, there is no need for caching the Q representations for the previous tokens.
+Answer: We only compute and use the Q vector of the last token in the Self-Attention block. Thus, there is no need for caching the Q representations for the previous tokens.
 
 **2. KV Sharing: Optimizing the depth dimension.**
 
 KV _Sharing_ reduces the cost of computing the K, V representations in the depth-dimension ($l$). Concretely, the proposal is that the actual K, V representations are the same between the last half (or any other fraction) of the layers.
 
-Note that we are referring to the actual $K$, $V$ tensors being the same, not just the $W_K$ and $W_V$ matrices being shared. What this means is that the last layer which doesn't share the K, V representations computes them once, and they are used as is across the remaining half of the layers.
+Note that we are referring to the actual $K$, $V$ tensors being the same, not just the $W_K$ and $W_V$ matrices being shared. What this means is that the last layer which doesn't share the K, V representations computes them once, and they are used as is across the remaining half of the layers (regardless of what the inputs are to these layers).
 
 Said in an even simpler way, there is a KV cache across the last half of the layers. This is illustrated in the figure below.
 
