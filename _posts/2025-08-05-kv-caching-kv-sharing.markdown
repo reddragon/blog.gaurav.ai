@@ -5,7 +5,7 @@ date: 2025-08-05 12:08:37 -0700
 comments: true
 categories: transformer, efficient-ai, inference
 ---
-Firstly, it feels good to blog again after a seven years hiatus. Secondly, starting with this post, I am starting a series on Efficient AI techniques (architecture, optimization, data, etc.). Most of these posts are going to be focused on techniques for improving autoregressive decoder-only models (LLMs) while also being generally applicable to other models with some tweaks. I also assume that you are familiar with the basics of the transformer architecture (if you are not, <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank">this</a> or <a href="" target="_blank">this</a> might be good first steps.).
+Firstly, it feels good to blog again after a seven years hiatus. Secondly, starting with this post, I am starting a series on Efficient AI techniques (architecture, optimization, data, etc.). Most of these posts are going to be focused on techniques for improving autoregressive decoder-only models (LLMs) while also being generally applicable to other models with some tweaks. I also assume that you are familiar with the basics of the transformer architecture (if you are not, <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank">this</a> or <a href="https://www.youtube.com/watch?v=kCc8FmEb1nY" target="_blank">this</a> might be good first steps.).
 
 **Summary**
 
