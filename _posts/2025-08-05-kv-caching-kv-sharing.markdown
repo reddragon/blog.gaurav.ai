@@ -71,7 +71,7 @@ KV Sharing. Source: <a href="https://arxiv.org/abs/2405.05254" target="_blank">Y
 
 The figure above illustrates the KV _Sharing_ by showing a shared KV cache between the last $l/2$ layers. It is easy to see that if this works, we can simply not compute the K, V representations for $l/2$ of the layers. More generally, we save $l/k$ of the FLOPS, if the last $l/k$ layers are shared.
 
-However, to make this work we need to ensure that the model is trained with the KV-Sharing behavior. This is detailed in the <a href="https://arxiv.org/abs/2405.05254" target="_blank">You Only Cache Once paper</a> paper.
+However, to make this work we need to ensure that the model is trained with the KV-Sharing behavior. This is detailed in the <a href="https://arxiv.org/abs/2405.05254" target="_blank">You Only Cache Once</a> paper.
 
 Some of the intuition behind why this even works in the first place, comes from works like <a href="https://arxiv.org/abs/2505.13898" target="_blank">these</a>, which show empirically that in a deep transformer-like model, the last layers are correlated with each other. What this means is that the last few layers are not necessarily adding a lot of new information, but just tweaking the output so far. This redundancy can potentially be exploited (on another note, how can we make these layers do more heavy lifting?).
 
@@ -84,11 +84,11 @@ Another bonus of this technique:
 
 **Conclusion**
 
-In this post we saw that we can significantly reduce the costs associated with computing the K,V representations in the Self-Attention block. Concretely, we reduced it by a factor of:
+In this post we saw that we can significantly reduce the costs associated with computing the K,V representations in the Self-Attention block using KV Caching and KV Sharing. Concretely, we reduced it by a factor of:
 
 1. $n$ by implementing KV Caching.
-2. $l/2$ by implementing KV sharing across the last $l/2$ layers.
+2. $l/2$ by implementing KV Sharing across the last $l/2$ layers.
 
-The total cost is now $O(ld^2)$, but there is a significantly smaller constant due to KV Sharing. Additionally, KV Sharing eliminates the $W_K$ and $W_V$ matrices for half the layers, which is another huge gain.
+The total cost is now $O(ld^2)$, but with a significantly smaller constant due to KV Sharing. Additionally, KV Sharing eliminates the $W_K$ and $W_V$ matrices for half the layers, which is another huge gain.
 
 That brings us to a close of this post. Please feel free to drop in any comments if I missed something.
