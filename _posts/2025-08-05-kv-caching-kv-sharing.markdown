@@ -13,12 +13,12 @@ Doing inference on transformers can be expensive. Inference latency scales linea
 
 In this post, we cover two different, but related techniques:
 
-1. KV Caching: cache and reuse the K, V representations of tokens that are already computed in previous steps.
-2. KV-Sharing: entails sharing of the key and value representations ($K$ and $V$) of tokens across the last half of the layers of a transformer model. Therefore we need not re-compute them across the last half of the layers. Other weight tensors such as query, MLP, etc. remain non-shared.
+1. KV Caching: cache and reuse the K, V representations of tokens that are already computed in previous steps. You might already be familiar with his.
+2. KV-Sharing: share the key and value representations ($K$ and $V$) of tokens across the last half of the layers of a transformer model. Therefore avoiding re-computing them across the last half of the layers. Other weight tensors such as query, MLP, etc. remain non-shared. This is a relatively newer technique.
 
 **Discussion**
 
-One of the reasons for the transformer's expensive inference is the need to compute the key, and value representations for all the tokens in the given sequence in the Self-Attention module. It looks something like the figure below.
+One of the reasons for a naive transformer implemention's expensive inference is the need to compute the key, and value representations for all the tokens in the given sequence in the Self-Attention module. It looks something like the figure below.
 
 <center>
 <img src="{{ site.baseurl }}/assets/img/2025/08/06/SelfAttention.jpg" alt="Self Attention block."  style="width: 82%;"/>
