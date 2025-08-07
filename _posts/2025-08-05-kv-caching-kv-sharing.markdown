@@ -91,4 +91,4 @@ In this post we saw that we can significantly reduce the costs associated with c
 
 The total cost is now $O(ld^2)$, but with a significantly smaller constant due to KV Sharing. Additionally, KV Sharing eliminates the $W_K$ and $W_V$ matrices for half the layers, which is another huge gain.
 
-That brings us to a close of this post. Please feel free to drop in any comments if I missed something.
+That brings us to a the end of this post. Please feel free to drop in any comments if I missed something.
