@@ -1,7 +1,9 @@
 <header class="header">
   <h3 class="header-title">
     <a href="{{ site.github.url }}/">{{ site.title }}</a><br/>
+    {% if site.description %}
     <small class="header-subtitle">{{ site.description }}</small>
+    {% endif %}
     {% include menu.html %}
   </h3>
 </header>

@@ -21,7 +21,8 @@ plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-t
 
 # Customise atom feed settings (this is where Jekyll-Feed gets configuration information)
 title:		           "Gaurav's Blog"
-description:	       'All things Computer Science.'
+# Turning off the description.
+# description:	       'All things Computer Science.'
 author:              'Gaurav Menghani'
 
 baseurl:
