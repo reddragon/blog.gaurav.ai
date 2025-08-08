@@ -14,7 +14,7 @@ Doing inference on transformers can be expensive. Inference latency scales linea
 In this post, we cover two different, but related techniques:
 
 1. KV Caching: cache and reuse the K, V representations of tokens that are already computed in previous steps. You might already be familiar with his.
-2. KV-Sharing: share the key and value representations ($K$ and $V$) of tokens across the last half of the layers of a transformer model. Therefore avoiding re-computing them across the last half of the layers. Other weight tensors such as query, MLP, etc. remain non-shared. This is a relatively newer technique.
+2. KV Sharing: share the key and value representations ($K$ and $V$) of tokens across the last half of the layers of a transformer model. Therefore avoiding re-computing them across the last half of the layers. Other weight tensors such as query, MLP, etc. remain non-shared. This is a relatively newer technique.
 
 **Discussion**
 

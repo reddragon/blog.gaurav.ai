@@ -14,15 +14,23 @@ I've been reading a few papers related to scaling Stochastic Gradient Descent fo
 
 **Model-Level Parallelism**: Works with large models by splitting the model graph itself into several parts. Each part of the model is assigned to a different machine. If there is an edge between two nodes in different parts, the two machines hosting those parts would need to communicate. This is to get around the problem of fitting a large model on a single GPU.
 
-<!-- center -->
-![Splitting the Model Graph]({{ site.baseurl }}/assets/img/2018/03/31/model_graph.png)
+<center>
+<img src="{{ site.baseurl }}/assets/img/2018/03/31/model_graph.png" alt="Splitting the Model Graph"
+  style="width: 82%;" />
+<br/>
+Figure 2: Splitting the Model Graph.
+</center>
 
 **Downpour SGD**: To be able to scale to large datasets, DistBelief also runs several _replicas_ of the model itself. The training data is split into several subsets, and each replica works on a single subset. Each of the replica sends the updates of its params to a Parameter Server. The parameter server itself is sharded, and is responsible for getting updates for a subset of params.
 
 Whenever a new replica starts a new minibatch, it gets the relevant params from the parameter server shards, and then sends its updates when its done with its minibatch.
 
-<!-- center -->
-![Parameter Server]({{ site.baseurl }}/assets/img/2018/03/31/parameter_server.png)
+<center>
+<img src="{{ site.baseurl }}/assets/img/2018/03/31/parameter_server.png" alt="Parameter Server"
+  style="width: 82%;" />
+<br/>
+Figure 2: Parameter Server.
+</center>
 
 The authors found Adagrad to be useful in the asynchrous SGD setting, since it uses an adaptive learning rate for each parameter, which makes it easy to implement locally per parameter shard.
 

@@ -23,6 +23,7 @@ body {
   font-size: 20px;
   color: $body-color;
   line-height: 2rem;
+  background-color: $background-color;
 }
 
 @media (max-width: $elements-responsive-width) {
@@ -62,7 +63,8 @@ a:hover {
 img {
   max-width: 100%;
   height: auto;
-  border-radius: 5px;
+  border-radius: 10px;
+  border: 1px solid $img-border-color;
 }
 
 blockquote {
