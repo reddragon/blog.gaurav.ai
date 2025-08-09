@@ -6,7 +6,7 @@ comments: true
 categories: transformer,
 permalink: /:title/
 ---
-This post goes over what people on ML Twitter refer to as the 'Noam Notation', (named after <a href="https://scholar.google.com/citations?user=wsGvgA8AAAAJ&hl=en" target="_blank">Noam Shazeer</a>, of the Transformer, MoE, Multihead Attention, etc. fame). Noam himself calls the same thing 'Shape Suffixes' (more detail in <a href="https://medium.com/@NoamShazeer/shape-suffixes-good-coding-style-f836e72e24fd" target="_blank">his post here</a>).
+This post goes over what people on ML Twitter refer to as the 'Noam Notation', (eponymously named after <a href="https://scholar.google.com/citations?user=wsGvgA8AAAAJ&hl=en" target="_blank">Noam Shazeer</a>, of the Transformer, MoE, Multihead Attention, etc. fame). Noam himself calls the same thing 'Shape Suffixes' (more detail in <a href="https://medium.com/@NoamShazeer/shape-suffixes-good-coding-style-f836e72e24fd" target="_blank">his post here</a>).
 
 Let's jump into it.
 
