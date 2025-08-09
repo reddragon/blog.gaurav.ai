@@ -31,10 +31,10 @@ query = jnp.einsum('BLD,DHK->BLHK', inputs_BLD, w_query_DHQ)
 
 The readability benefits of this notation quickly compounds, especially in a large codebase. For one example, see the <a href="https://github.com/google-deepmind/nanodo/blob/10aefdeed40a63293daf112b91a5538cd24fa3a4/nanodo/model.py#L121" target="_blank">NanoDO framework's implementation of Causal Attention</a> and other building blocks of the Transformer model (they use the character `x` as a separator between dimensions, but the motivation remains the same).
 
-Concretely, a non-exhaustive list of what Noam's Notation allows you to do is:
+Concretely, a non-exhaustive list of what Noam Notation allows you to do is as follows:
 
 1. Infer the semantics of a particular tensor just by reading its name.
 2. Avoid compilation bugs.
 3. Avoid silent bugs that do something unintentional such as broadcasting. 
 
-The last one gives me the chills, so it's much better to use Noam's Notation than be sorry later. Give it a try the next time you are writing something from scratch.
+The last one gives me the chills, so it's much better to use Noam Notation than be sorry later. Give it a try the next time you are writing something from scratch.
