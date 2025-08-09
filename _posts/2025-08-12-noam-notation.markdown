@@ -26,12 +26,22 @@ Where `batch_size`, `seq_len`, and `d_model` are your batch size, sequence lengt
 Equipped with this invariant, you can easily tell that the following code will also likely compile:
 
 ```python
-query = jnp.einsum('BLD,DHK->BLHK', inputs_BLD, w_query_DHQ)
+query_BLHK = jnp.einsum('BLD,DHK->BLHK', inputs_BLD, w_q_DHK)
 ```
 
-The readability benefits of this notation quickly compounds, especially in a large codebase. For one example, see the <a href="https://github.com/google-deepmind/nanodo/blob/10aefdeed40a63293daf112b91a5538cd24fa3a4/nanodo/model.py#L121" target="_blank">NanoDO framework's implementation of Causal Attention</a> and other building blocks of the Transformer model (they use the character `x` as a separator between dimensions, but the motivation remains the same).
+Here we do a matrix multiply between the `inputs_BLD` and the `w_q_DHQ` tensors. `H` here stands for the number of heads, and `Q` stands for the per-head embedding dimension. The exact meaning of those characters should either be easy to guess, or established somewhere in the code.
 
-Concretely, a non-exhaustive list of what Noam Notation allows you to do is as follows:
+Regardless, it is easy to see that the two tensors should be compatible for matrix multiplication in that order, and the output tensor should be of shape [B, H, K]. Now imagine if we suddenly turn off the notation.
+
+```python
+query = jnp.einsum('BLD,DHK->BLHK', inputs, w_q)
+```
+
+Eww. Right?
+
+The readability benefits of this notation quickly compounds, especially in a large codebase. For one example, see the <a href="https://github.com/google-deepmind/nanodo/blob/10aefdeed40a63293daf112b91a5538cd24fa3a4/nanodo/model.py#L121" target="_blank">NanoDO framework's implementation of Causal Attention</a> and other building blocks of the Transformer model. NanoDO uses the character `x` as a separator between dimensions, but the motivation remains the same. Although one benefit of using a separator could be that you can use multiple characters to denote a dimension, since without a separator you are limited to 26 dimensions.
+
+To summarize, a non-exhaustive list of what Noam Notation allows you to do is as follows:
 
 1. Infer the semantics of a particular tensor just by reading its name.
 2. Avoid compilation bugs.
