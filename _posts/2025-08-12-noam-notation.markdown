@@ -29,7 +29,7 @@ Equipped with this information, you can easily tell that the following code will
 query = jnp.einsum('BLD,DHK->BLHK', inputs_BLD, w_query_DHQ)
 ```
 
-The readability benefits of this notation quickly compounds! Concretely, what Noam's Notation allows you to do is:
+The readability benefits of this notation quickly compounds! Concretely, a non-exhaustive list of what Noam's Notation allows you to do is:
 
 1. Infer the semantics of a particular tensor just by reading its name.
 2. Avoid compilation bugs.
