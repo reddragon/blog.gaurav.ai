@@ -23,23 +23,25 @@ assert inputs.shape == (batch_size, seq_len, d_model)
 
 Where `batch_size`, `seq_len`, and `d_model` are your batch size, sequence length, and model dimension, respectively. Again, if your code actually follows the notation, you would not need to actually perform the assertion.
 
-Equipped with this invariant, you can easily tell that the following code will also likely compile:
+Equipped with this invariant to all tensors in your code, you can easily tell that the following code is **guaranteed** to compile:
 
 ```python
 query_BLHK = jnp.einsum('BLD,DHK->BLHK', inputs_BLD, w_q_DHK)
 ```
 
-Here we do a matrix multiply between the `inputs_BLD` and the `w_q_DHQ` tensors. `H` here stands for the number of heads, and `Q` stands for the per-head embedding dimension. The exact meaning of those characters should either be easy to guess, or established somewhere in the code.
+Here we do a matrix multiply between the `inputs_BLD` and the `w_q_DHK` tensors. `H` here stands for the number of heads, and `Q` stands for the per-head embedding dimension. The exact meaning of those characters should either be easy to guess, or established somewhere in the code or documentation.
 
-Regardless, it is easy to see that the two tensors should be compatible for matrix multiplication in that order, and the output tensor should be of shape [B, H, K]. Now imagine if we suddenly turn off the notation.
+Regardless, it is easy to see that the two tensors in the above snippet should be compatible for matrix multiplication in that order, and the output tensor should be of shape [B, H, K]. That's a lot of useful information!
+
+Now imagine if we suddenly turn off the notation.
 
 ```python
 query = jnp.einsum('BLD,DHK->BLHK', inputs, w_q)
 ```
 
-Eww. Right?
+Eww. Right? It's like we stripped a lot of useful information.
 
-The readability benefits of this notation quickly compounds, especially in a large codebase. For one example, see the <a href="https://github.com/google-deepmind/nanodo/blob/10aefdeed40a63293daf112b91a5538cd24fa3a4/nanodo/model.py#L121" target="_blank">NanoDO framework's implementation of Causal Attention</a> and other building blocks of the Transformer model. NanoDO uses the character `x` as a separator between dimensions, but the motivation remains the same. Although one benefit of using a separator could be that you can use multiple characters to denote a dimension, since without a separator you are limited to 26 dimensions.
+The readability benefits of this notation quickly compounds, especially in a large codebase. For one example, see the <a href="https://github.com/google-deepmind/nanodo/blob/10aefdeed40a63293daf112b91a5538cd24fa3a4/nanodo/model.py#L121" target="_blank">NanoDO framework's implementation of Causal Attention</a> and other building blocks of the Transformer model. NanoDO uses the character `x` as a separator between dimensions (so `inputs_BLD` becomes `inputs_BxLxD`), but the motivation remains the same. Although one benefit of using a separator could be that you can use multiple characters to denote a dimension, since without a separator you are limited to 26 dimensions.
 
 To summarize, a non-exhaustive list of what Noam Notation allows you to do is as follows:
 
@@ -47,4 +49,4 @@ To summarize, a non-exhaustive list of what Noam Notation allows you to do is as
 2. Avoid compilation bugs.
 3. Avoid silent bugs that do something unintentional such as broadcasting. 
 
-The last one gives me the chills, so it's much better to use Noam Notation than be sorry later. Give it a try the next time you are writing something from scratch.
+The last one gives me the chills, so it's much better to use Noam Notation than be sorry after wasting hours / days debugging why your model doesn't train *that* well. Give Noam Notation a try the next time you are writing something from scratch.
