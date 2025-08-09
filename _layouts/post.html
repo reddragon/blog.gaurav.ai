@@ -3,7 +3,7 @@ layout: default
 ---
 
 <h1>
-  {{ page.title }}
+  <a href="{{ site.github.url }}{{ page.url }}">{{ page.title }}</a>
 </h1>
 {% if page.image %}
   <img src="{{ site.github.url }}/assets/img/{{ page.image }}">
