@@ -25,7 +25,7 @@ assert inputs.shape == (batch_size, seq_len, d_model)
 
 Where `batch_size`, `seq_len`, and `d_model` are your batch size, sequence length, and model dimension, respectively. Again, if your code strictly follows the notation, you would not need to actually perform the assertion.
 
-Equipped with this invariant to all tensors in your code, you can easily tell that the following code is **guaranteed** to compile:
+Assuming that this invariant holds for all tensors in your code, you can easily tell that the following code is **guaranteed** to compile:
 
 ```python
 query_BLHK = jnp.einsum('BLD,DHK->BLHK', inputs_BLD, w_q_DHK)
@@ -51,4 +51,6 @@ To summarize, a non-exhaustive list of what Noam Notation allows you to do is as
 2. Avoid compilation bugs.
 3. Avoid silent bugs that do something unintentional such as broadcasting. 
 
-The last one gives me the chills. It's much better to use Noam Notation than be sorry after wasting hours / days debugging why your model doesn't train *that* well. Give the Noam Notation a try the next time you are writing something from scratch. Let me know how you feel about this idea, or if you have your own neat ways of writing and organizing AI / ML related code.
+The last one gives me the chills. It's much better to use Noam Notation than be sorry after wasting hours / days debugging why your model doesn't train *that* well. Give the Noam Notation a try the next time you are writing something from scratch.
+
+Let me know how you feel about this idea, or if you have your own neat ways of writing and organizing AI / ML related code.

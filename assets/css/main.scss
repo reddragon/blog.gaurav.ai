@@ -6,7 +6,9 @@ $serif-font-family:      "CMU", "Libertinus Math", serif;
 $code-font-family:       "Source Code Pro", monospace;
 
 $background-color:       #f5f5f0;
-$img-border-color:       #d0d0d1;
+$nice-border-color:      #d0d0d1;
+$code-border-color:      $nice-border-color;
+$img-border-color:       $nice-border-color;
 
 $body-color:             #505050;
 $link-color:             #00a;
