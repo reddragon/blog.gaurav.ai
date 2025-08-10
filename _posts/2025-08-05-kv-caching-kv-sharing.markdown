@@ -9,7 +9,7 @@ Firstly, it feels good to blog again after a seven year hiatus. Secondly, starti
 
 # Introduction
 
-Doing inference on transformers can be expensive. Inference latency and memory usage scales linearly with the model depth / number of layers ($l$) in the model. Efforts like Early Exits (<a href="" target="_blank">et al.</a>, <a href="" target="_blank">et al.</a>, <a href="" target="_blank">et al.</a>) aim to reduce the inference latency by reducing the number of layers used while processing _easier_ tokens (for some definition of 'easier'), but aren't trivial to implement. We will cover this in a future post.
+Doing inference on transformers can be expensive. Inference latency and memory usage scales linearly with the model depth / number of layers ($l$) in the model. Efforts like Early Exits (<a href="https://arxiv.org/abs/2004.12993" target="_blank">Xin et al., 2020</a>; <a href="https://arxiv.org/abs/1910.10073" target="_blank">Elbayad et al., 2019</a>) aim to reduce the inference latency by reducing the number of layers used while processing _easier_ tokens (for some definition of 'easier'), but aren't trivial to implement. We will cover this in a future post.
 
 In this post, we cover two different, but related techniques:
 
