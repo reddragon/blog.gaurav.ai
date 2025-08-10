@@ -5,18 +5,18 @@ date: 2025-08-05 12:08:37 -0700
 comments: true
 categories: transformer, efficient-ai, inference
 ---
-Firstly, it feels good to blog again after a seven year hiatus. Secondly, starting with this post, I am starting a series on Efficient AI techniques (architecture, optimization, data, etc.). Most of these posts are going to be focused on techniques for improving autoregressive decoder-only models (LLMs) while also being generally applicable to other models with some tweaks. I also assume that you are familiar with the basics of the transformer architecture (if you are not, <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank">this</a> or <a href="https://www.youtube.com/watch?v=kCc8FmEb1nY" target="_blank">this</a> might be good first steps.).
+Firstly, it feels good to blog again after a seven year hiatus. Secondly, starting with this post, I am starting a series on Efficient AI techniques (architecture, optimization, data, etc.). Most of these posts are going to be focused on techniques for improving autoregressive decoder-only models (LLMs) while also being generally applicable to other models with some tweaks. I also assume that you are familiar with the basics of the transformer architecture (if not, <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank">this</a> or <a href="https://www.youtube.com/watch?v=kCc8FmEb1nY" target="_blank">this</a> might be good first steps.).
 
-**Summary**
+# Introduction
 
-Doing inference on transformers can be expensive. Inference latency scales linearly with the model depth / number of layers ($l$) in the model. Efforts like Early Exits aim to reduce the number of layers used while processing _easier_ tokens (for some definition of 'easier'), but aren't trivial to implement. We will cover it in a future post.
+Doing inference on transformers can be expensive. Inference latency and memory usage scales linearly with the model depth / number of layers ($l$) in the model. Efforts like Early Exits (<a href="" target="_blank">et al.</a>, <a href="" target="_blank">et al.</a>, <a href="" target="_blank">et al.</a>) aim to reduce the inference latency by reducing the number of layers used while processing _easier_ tokens (for some definition of 'easier'), but aren't trivial to implement. We will cover this in a future post.
 
 In this post, we cover two different, but related techniques:
 
 1. KV Caching: cache and reuse the K, V representations of tokens that are already computed in previous steps. You might already be familiar with his.
 2. KV Sharing: share the key and value representations ($K$ and $V$) of tokens across the last half of the layers of a transformer model. Therefore avoiding re-computing them across the last half of the layers. Other weight tensors such as query, MLP, etc. remain non-shared. This is a relatively newer technique.
 
-**Discussion**
+# Discussion
 
 One of the reasons for a naive transformer implemention's expensive inference is the need to compute the key, and value representations for all the tokens in the given sequence in the Self-Attention module. It looks something like the figure below.
 
@@ -40,7 +40,7 @@ In the above calculation, we assume a single attention head. Thus the total cost
 
 We can't do much about $d$ yet, but let's see how we can tackle the other two for now.
 
-**1. KV Caching: Optimizing the sequence dimension.** 
+## 1. KV Caching: Optimizing the sequence dimension. 
 
 KV Caching suggests there are two things happening during inference:
 
@@ -54,7 +54,7 @@ If we can do this, we would only need to compute the K, V representations of the
 Question: Why don't we cache the query representation?<br/>
 Answer: We only compute and use the Q vector of the last token in the Self-Attention block. Thus, there is no need for caching the Q representations for the previous tokens.
 
-**2. KV Sharing: Optimizing the depth dimension.**
+## 2. KV Sharing: Optimizing the depth dimension.
 
 KV _Sharing_ reduces the cost of computing the K, V representations in the depth-dimension ($l$). Concretely, the proposal is that the actual K, V representations are the same between the last half (or any other fraction) of the layers.
 
@@ -82,7 +82,7 @@ Another bonus of this technique:
 1. You also save a lot of memory, since you don't have to store $W_K$ and $W_V$ at all.
 1. It is applicable during training as well, so you save on inference and memory during training too.
 
-**Conclusion**
+# Conclusion
 
 In this post we saw that we can significantly reduce the costs associated with computing the K,V representations in the Self-Attention block using KV Caching and KV Sharing. Concretely, we reduced it by a factor of:
 
