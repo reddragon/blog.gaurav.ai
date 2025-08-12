@@ -1,0 +1,21 @@
+---
+layout: post
+title: "Automatic Differentiation"
+date: 2025-08-12 12:08:37 -0700
+comments: true
+categories: transformer,optimization
+permalink: /:title/
+---
+This is a quick primer on automatic differentiation.
+
+# Recap
+
+1. What is a Jacobian?
+xyz
+
+1. What is a Hessian?
+abc
+
+1. What is the Chain Rule?
+def
+
