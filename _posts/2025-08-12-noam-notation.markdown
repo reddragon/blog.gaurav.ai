@@ -51,6 +51,6 @@ To summarize, a non-exhaustive list of what Noam Notation allows you to do is as
 2. Avoid compilation bugs.
 3. Avoid silent bugs that do something unintentional such as broadcasting. 
 
-The last one gives me the chills. It's much better to use Noam Notation than be sorry after wasting hours / days debugging why your model doesn't train *that* well. Give the Noam Notation a try the next time you are writing something from scratch.
+The last one gives me the chills. It's much better to use this notation than be sorry after wasting hours / days debugging why your model doesn't train *that* well. Give Noam Notation a try the next time you are writing something from scratch.
 
 Let me know how you feel about this idea, or if you have your own neat ways of writing and organizing AI / ML related code.
