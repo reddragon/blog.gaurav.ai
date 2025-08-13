@@ -10,7 +10,7 @@ This post goes over what people on ML Twitter refer to as the 'Noam Notation', (
 
 Let's jump into it.
 
-Consider a Jax (or PyTorch, etc.) tensor named `inputs`. The name itself doesn't tell you much. If you enable strict typing, Python will force you to specify that it is a Jax Array in the following manner: `inputs: jax.Array` when passing it or returning it from a function. 
+Consider a Jax (or PyTorch, etc.) tensor named `inputs`. The name itself doesn't tell you much. If you enable strict typing, Python will force you to specify that it is a JAX Array in the following manner: `inputs: jax.Array` when passing it as an argument, or as `-> jax.Array` when returning it from a function.
 
 Now, how about if the the tensor was named `inputs_BLD`, (when combined with typing `inputs_BLD: jax.Array`) where the `BLD` part additionally tells you that:
 
