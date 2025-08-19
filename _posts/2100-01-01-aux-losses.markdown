@@ -62,4 +62,8 @@ Figure 3: A model with three auxiliary losses at depth 2, $n/2$ and $3n/4$.
 </center>
 
 # Observations
-If we minimize the $L_{\text{total}}$ as described above, it will force the model to not just align $y_{n}'$ with $y$, but also the various $y_{d}'$ for each $d \in D$.
+If we minimize the $L_{\text{total}}$ as described above, it will force the model to not just align $y_{n}'$ with $y$, but also the various $y_{d}'$ for each $d \in D$. This will naturally also allow us to use the various $y_{d}'$ as final outputs, where we can adjust the depth $d$ to match our cost v/s quality tradeoff.
+
+Another nice property is that, even if we _don't_ intend to use smaller models with $d < n$, auxiliary losses provide a **regularizing effect** in the model, as described in the Inception paper.
+
+To summarize, Auxiliary Losses is a simple technique that you can plug into your models to make them depth-competitive, or just improve their quality with their regularizing behavior.
