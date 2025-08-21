@@ -21,7 +21,7 @@ Let's jump in to see how we can achieve these two.
 
 It might already be intuitive to you, but many recent works are empirically showing that the first few layers of an LLM are doing the heavy lifting when it comes to learning meaningful representations / minimizing the loss, etc. We can exploit this behavior by forcing the model to have an early-exit like behavior, and be _depth-competitive_. 
 
-Informally, if the model has $n$ 'blocks', can we get, say $\sim 90\%$ of the performance of the full model with $n/2$ blocks? Additionally can we get $\sim 95\%$ of the full model's performance with $3n/4$ blocks, and so on? The first $n/2$ of the blocks should be the best $n/2$ blocks, the first $3n/4$ blocks should be the best $3n/4$ blocks, etc.
+Informally, if the model has $n$ 'blocks', can we get, say $\sim 90\%$ of the performance of the full model with only the first $n/2$ blocks? Additionally can we get $\sim 95\%$ of the full model's performance with the first $3n/4$ blocks, and so on? The first $n/2$ of the blocks should be the best $n/2$ blocks, the first $3n/4$ blocks should be the best $3n/4$ blocks, etc., i.e. depth-competitive.
 
 <center>
 <img src="{{ site.baseurl }}/assets/img/2025/08/22/bots.jpg" alt="Models of different sizes."  style="width: 62%;"/>
@@ -39,7 +39,7 @@ Figure 2: The baseline model consisting of $n$ blocks.
 
 The problem that we have on our hands now is:
 1. We have to run the full model to get the output.
-1. The intermediate outputs even if they can be extracted, may not make sense.
+1. The intermediate outputs may not make sense for directly predicting the output.
 
 # Auxiliary Losses
 
@@ -50,7 +50,7 @@ Additionally, the auxiliary head might anyway be required because the model isn'
 Once we have $y_{i}'$ (potentially using auxiliary prediction heads), the auxiliary loss recipe is as follows:
 1. Choose the different intermediate depths of the model that we care about, say $$D = \{ 2, n/2, 3n/4 \}$$ in this case.
 1. Add a loss term $L(y, y_{d}')$ for each $d \in D$.
-1. Optionally add a weight $\alpha_{i}$ to tune the contribution of that loss.
+1. Optionally add a weight $\alpha_{i}$ (a hyper-param) to tune the contribution of that loss.
 
 So the total loss to be minimized will look as follows:
 
@@ -62,15 +62,17 @@ Refer to Figure 3 below for an illustration of the case where we add auxiliary l
 <center>
 <img src="{{ site.baseurl }}/assets/img/2025/08/22/aux-losses.jpg" alt="Auxiliary losses."  style="width: 62%;"/>
 <br/>
-Figure 3: A model with three auxiliary losses at depth 2, $n/2$ and $3n/4$.
+Figure 3: A model with three auxiliary losses at depths $D = \{ 2, n/2, 3n/4 \}$.
 </center>
 
 # Observations
-If we minimize the $L_{\text{total}}$ as described above, it will force the model to not just align $y_{n}'$ with $y$, but also the various $y_{d}'$ for each $d \in D$. This will naturally also allow us to use the various $y_{d}'$ as final outputs, where we can adjust the depth $d$ to match our cost v/s quality tradeoff.
+If we minimize the $L_{\text{total}}$ as described above, it will force the model to not just align $y_{n}'$ with $y$, but also the various $y_{d}'$ for each $d \in D$. This will naturally also allow us to use the various $y_{d}'$ as final outputs, where we can adjust the depth $d$ to match our cost v/s quality tradeoff. For example, if we want to get a model that works well with $n/2$ blocks, we would want to add an auxiliary loss term with that depth as described above.
 
-Another nice property is that, even if we _don't_ intend to use smaller models with $d < n$, auxiliary losses provide a **regularizing effect** in the model which leads to better model quality, as described in the Inception paper.
+Another nice property is that, even if we _don't_ intend to use smaller models with $d < n$, auxiliary losses provide a **regularizing effect** in the model which leads to better model quality, as described in the Inception paper. 
+
+If we are only interested in improving the full model's quality, the auxiliary losses and prediction heads can be added during training, and then discarded during inference.
 
 # Conclusion
-To summarize, Auxiliary Losses is a simple technique that you can plug into your models to make them depth-competitive, or just improve their quality with their regularizing behavior.
+To summarize, Auxiliary Losses is a simple technique that you can plug into your models to make them depth-competitive, or as a regularizer to just improve model quality.
 
 _Thanks to <a href="http://dhruvbird.com" target="_blank">Dhruv Matani</a> for reviewing this post_.
