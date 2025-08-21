@@ -72,3 +72,5 @@ Another nice property is that, even if we _don't_ intend to use smaller models w
 
 # Conclusion
 To summarize, Auxiliary Losses is a simple technique that you can plug into your models to make them depth-competitive, or just improve their quality with their regularizing behavior.
+
+_Thanks to <a href="http://dhruvbird.com" target="_blank">Dhruv Matani</a> for reviewing this post_.
