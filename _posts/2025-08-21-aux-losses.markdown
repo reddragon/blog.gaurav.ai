@@ -1,11 +1,15 @@
 ---
 layout: post
 title: "Efficient AI: Auxiliary Losses"
-date: 2100-01-11 12:08:37 -0700
+date: 2025-08-21 01:08:37 -0700
 comments: true
 categories: transformer,
 permalink: /:title/
 ---
+**TL;DR**: You can use outputs of intermediate blocks as predictions (usually after adding learned prediction heads). These intermediate blocks' predictions can then be used to create auxiliary loss terms to be added to the original loss function. Minimizing this new total loss can help create 'early exits' in the model, and also improve the full model's quality via the regularization effect of these auxiliary losses.
+
+---
+
 The <a href="https://arxiv.org/abs/1409.4842" target="_blank">Inception paper (Szegedy et al., 2015)</a> had a very neat technique hidden in plain sight, that few people mention: Auxiliarly Losses. They allow you to potentially achieve two nice things:
 
 1. Save model inference costs by only running the model up to a certain number of blocks.
@@ -64,6 +68,7 @@ Figure 3: A model with three auxiliary losses at depth 2, $n/2$ and $3n/4$.
 # Observations
 If we minimize the $L_{\text{total}}$ as described above, it will force the model to not just align $y_{n}'$ with $y$, but also the various $y_{d}'$ for each $d \in D$. This will naturally also allow us to use the various $y_{d}'$ as final outputs, where we can adjust the depth $d$ to match our cost v/s quality tradeoff.
 
-Another nice property is that, even if we _don't_ intend to use smaller models with $d < n$, auxiliary losses provide a **regularizing effect** in the model, as described in the Inception paper.
+Another nice property is that, even if we _don't_ intend to use smaller models with $d < n$, auxiliary losses provide a **regularizing effect** in the model which leads to better model quality, as described in the Inception paper.
 
+# Conclusion
 To summarize, Auxiliary Losses is a simple technique that you can plug into your models to make them depth-competitive, or just improve their quality with their regularizing behavior.
